@@ -15,6 +15,13 @@ const typeDefs = gql`
     active: Boolean!
   }
 
+  type Book {
+    _id: ID!
+    name: String!
+    author: String!
+    category: String!
+  }
+
   type Post {
     _id: ID!
     title: String!
@@ -26,10 +33,13 @@ const typeDefs = gql`
     hello: String
     users: [User!]!
     getUserByEmail(email: String!): User!
+    books: [Book!]!
+    getBookByName(name: String!): Book!
   }
 
   type Mutation {
     createUser(name: String!, email: String!): User!
+    createBook(name: String!, author: String!, category: String!): Book!
   }
 `;
 
@@ -54,12 +64,37 @@ const users = [
   },
 ];
 
+const books = [
+  {
+    _id: String(Math.random()),
+    name: "Livro1",
+    author: "Autor1",
+    category: "Ação",
+  },
+  {
+    _id: String(Math.random()),
+    name: "Livro2",
+    author: "Autor2",
+    category: "Suspense",
+  },
+  {
+    _id: String(Math.random()),
+    name: "Livro3",
+    author: "Autor3",
+    category: "Romance",
+  },
+];
+
 const resolvers = {
   Query: {
     hello: () => "Hello, World!",
     users: () => users,
     getUserByEmail: (_, args) => {
       return users.find((u) => u.email === args.email);
+    },
+    books: () => books,
+    getBookByName: (_, args) => {
+      return books.find((b) => b.name === args.name);
     },
   },
   Mutation: {
@@ -72,6 +107,16 @@ const resolvers = {
       };
       users.push(newUser);
       return newUser;
+    },
+    createBook: (_, args) => {
+      const newBook = {
+        _id: String(Math.random()),
+        name: args.name,
+        author: args.author,
+        category: args.category,
+      };
+      books.push(newBook);
+      return newBook;
     },
   },
 };

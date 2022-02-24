@@ -1,36 +1,23 @@
-import { APOLLO_NAMED_OPTIONS, APOLLO_OPTIONS } from 'apollo-angular';
+import { APOLLO_NAMED_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
-import { InMemoryCache } from '@apollo/client/core';
 import { NgModule } from '@angular/core';
+import { BooksDomain } from './domain/books/books.domain';
+import { UsersDomain } from './domain/users/users.domain';
+import { environment } from 'src/environments/environment';
 
 
-const uri = 'http://localhost:4000';
-const uri2 = 'http://localhost:3000';
-
-export function createApolloDefault(httpLink: HttpLink) {
-  return {
-    link: httpLink.create({ uri }),
-    cache: new InMemoryCache()
-  };
-}
+const books = new BooksDomain(environment.ENDPOINT);
+const users = new UsersDomain(environment.ENDPOINT);
 
 export function createApolloName(httpLink: HttpLink) {
   return {
-    endpoint2: {
-      name: 'endpoint2',
-      link: httpLink.create({ uri: uri2 }),
-      cache: new InMemoryCache()
-    }
+    ...books.getBooks(httpLink),
+    ...users.getUsers(httpLink),
   };
 }
 
 @NgModule({
   providers: [
-    {
-      provide: APOLLO_OPTIONS,
-      useFactory: createApolloDefault,
-      deps: [HttpLink]
-    },
     {
       provide: APOLLO_NAMED_OPTIONS,
       useFactory: createApolloName,
@@ -39,29 +26,3 @@ export function createApolloName(httpLink: HttpLink) {
   ]
 })
 export class GraphQLModule { }
-
-
-// FUNCIONOU
-
-// @NgModule({})
-// export class GraphQLModule {
-
-//   constructor(
-//     apollo: Apollo,
-//     httpLink: HttpLink
-//   ) {
-
-//     const uri = 'http://localhost:4000';
-//     const uri2 = 'http://localhost:4000';
-
-//     apollo.createDefault({
-//       link: httpLink.create({ uri }),
-//       cache: new InMemoryCache()
-//     });
-
-//     apollo.createNamed('endpoint2', {
-//       link: httpLink.create({ uri: uri2 }),
-//       cache: new InMemoryCache()
-//     });
-//   }
-// }
