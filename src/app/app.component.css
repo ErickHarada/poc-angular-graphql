@@ -1,0 +1,15 @@
+p {
+    margin: 0 15px;
+}
+
+.block {
+    display: flex;
+}
+
+.block.block--user {
+    background-color: aquamarine;
+}
+
+.block.block--book {
+    background-color: mediumslateblue;
+}
