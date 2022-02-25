@@ -6,10 +6,10 @@ p {
     display: flex;
 }
 
-.block.block--user {
+.block.block--list {
     background-color: #90c2e7;
 }
 
-.block.block--book {
+.block.block--item {
     background-color: #7ae582;
 }

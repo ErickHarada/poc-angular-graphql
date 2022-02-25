@@ -1,39 +1,52 @@
-<h2>USERS</h2>
-<div class="block block--user">
-  <div *ngFor="let user of users">
-    <br>
-    <div>
-      <p><strong>id:</strong> {{ user._id }}</p>
+<div>
+  <h2>LIST</h2>
+  <span>
+    <button (click)="getAllUsers()">USERS</button>
+    <button (click)="getAllBooks()">BOOKS</button>
+  </span>
+</div>
+
+<h2>{{ title }}</h2>
+<div class="block block--list">
+  <div *ngFor="let resp of responseList">
+    <br />
+    <div *ngFor="let item of destructuring(resp)">
+      <p>
+        <strong>{{ item }}:</strong> {{ resp[item] }}
+      </p>
     </div>
-    <div>
-      <p><strong>name:</strong> {{ user.name }}</p>
-    </div>
-    <div>
-      <p><strong>email:</strong> {{ user.email }}</p>
-    </div>
-    <div>
-      <p><strong>active:</strong> {{ user.active }}</p>
-    </div>
-    <br>
+    <br />
   </div>
 </div>
 
-<h2>BOOKS</h2>
-<div class="block block--book">
-  <div *ngFor="let book of books">
-    <br>
-    <div>
-      <p><strong>id:</strong> {{ book._id }}</p>
+<br /><br />
+
+<div>
+  <h2>ITEM</h2>
+  <span>
+    <button (click)="getUserByEmail()">USER</button>
+    <button (click)="getBookByName()">BOOK</button>
+  </span>
+</div>
+
+<div *ngIf="response" class="block block--item">
+  <div>
+    <br />
+    <div *ngFor="let item of destructuring(response)">
+      <p>
+        <strong>{{ item }}:</strong> {{ response[item] }}
+      </p>
     </div>
-    <div>
-      <p><strong>name:</strong> {{ book.name }}</p>
-    </div>
-    <div>
-      <p><strong>author:</strong> {{ book.author }}</p>
-    </div>
-    <div>
-      <p><strong>category:</strong> {{ book.category }}</p>
-    </div>
-    <br>
+    <br />
   </div>
+</div>
+
+<br /><br />
+
+<div>
+  <h2>INSERT</h2>
+  <span>
+    <button (click)="setUser()">USER</button>
+    <button (click)="setBook()">BOOK</button>
+  </span>
 </div>

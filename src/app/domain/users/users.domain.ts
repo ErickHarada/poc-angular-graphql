@@ -10,10 +10,6 @@ export class UsersDomain {
             users: {
                 link: httpLink.create({ uri: `${this.environment}/users` }),
                 cache: new InMemoryCache()
-            },
-            users2: {
-                link: httpLink.create({ uri: `${this.environment}/users2` }),
-                cache: new InMemoryCache()
             }
         }
     }
